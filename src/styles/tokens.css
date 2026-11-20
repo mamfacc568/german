@@ -63,8 +63,11 @@
   --gender-die-bg: #FFE4E9;
   --gender-der: var(--primary-600);  /* masculine */
   --gender-der-bg: var(--primary-100);
-  --gender-das: var(--tertiary-600); /* neuter    */
-  --gender-das-bg: var(--tertiary-100);
+  /* Teal, not green: against the rose used for "die" a green fails colourblind
+     separation (ΔE 5.8 deutan). #0D9488 scores ΔE 10.2 and still reads green. */
+  --gender-das: #0D9488; /* neuter */
+  --gender-das-bg: #CCFBF1;
+  --gender-das-dark: #0F766E;
 
   /* ---------- Semantic surfaces ---------- */
   --bg-app: #EEF0F8;
@@ -87,6 +90,8 @@
   --font-label: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   /* Technical metadata only: IPA, auxiliaries, separability, counts. */
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', monospace;
+  /* Devanagari — Plus Jakarta Sans has no Hindi glyphs. */
+  --font-hindi: 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', sans-serif;
 
   --fs-display: 36px;
   --fs-headline: 22px;

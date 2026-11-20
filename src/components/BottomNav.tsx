@@ -5,7 +5,7 @@ export type TabId = 'dictionary' | 'deck' | 'grammar' | 'progress';
 const TABS: { id: TabId; label: string; Icon: typeof SearchIcon }[] = [
   { id: 'dictionary', label: 'Dictionary', Icon: SearchIcon },
   { id: 'deck', label: 'Anki Deck', Icon: CardsIcon },
-  { id: 'grammar', label: 'Grammar', Icon: BookIcon },
+  { id: 'grammar', label: 'Vocabulary', Icon: BookIcon },
   { id: 'progress', label: 'Progress', Icon: ChartIcon },
 ];
 

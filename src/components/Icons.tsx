@@ -188,3 +188,94 @@ export function PrefixIcon({ size = 18, strokeWidth = 2, className }: IconProps)
     </svg>
   );
 }
+
+export function BookmarkIcon({ size = 17, strokeWidth = 2, className }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)} className={className}>
+      <path d="M6.5 4h11v16l-5.5-4-5.5 4z" />
+    </svg>
+  );
+}
+
+export function TranslateIcon({ size = 26, strokeWidth = 2, className }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)} className={className}>
+      <path d="M3.5 5.5h9M8 3.5v2M10.5 5.5c0 4-3 7-7 7" />
+      <path d="M6 9.5c0 2 2 3.5 5.5 4.5" />
+      <path d="m12.5 20.5 4-10 4 10M14 17.5h5" />
+    </svg>
+  );
+}
+
+export function FlipIcon({ size = 18, strokeWidth = 2, className }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)} className={className}>
+      <path d="M3.5 9.5A8.5 8.5 0 0 1 18 6.5l2.5 2.5" />
+      <path d="M20.5 4.5v5h-5" />
+      <path d="M20.5 14.5A8.5 8.5 0 0 1 6 17.5L3.5 15" />
+      <path d="M3.5 19.5v-5h5" />
+    </svg>
+  );
+}
+
+export function ReplayIcon({ size = 17, strokeWidth = 2, className }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)} className={className}>
+      <path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5" />
+      <path d="M3.5 3.5v5h5" />
+    </svg>
+  );
+}
+
+export function TagIcon({ size = 15, strokeWidth = 2, className }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)} className={className}>
+      <path d="M11.5 3.5H4a.5.5 0 0 0-.5.5v7.5l9 9 8-8-9-9z" />
+      <circle cx="7.5" cy="7.5" r="1.3" />
+    </svg>
+  );
+}
+
+export function BadgeCheckIcon({ size = 17, strokeWidth = 2, className }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)} className={className}>
+      <path d="m12 3 2.3 1.8 2.9-.3 1 2.7 2.5 1.5-1 2.8 1 2.8-2.5 1.5-1 2.7-2.9-.3L12 21l-2.3-1.8-2.9.3-1-2.7L3.3 15.3l1-2.8-1-2.8 2.5-1.5 1-2.7 2.9.3z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
+}
+
+export function SlidersIcon({ size = 19, strokeWidth = 2, className }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)} className={className}>
+      <path d="M4 7h10M18 7h2M4 17h4M12 17h8" />
+      <circle cx="16" cy="7" r="2" />
+      <circle cx="10" cy="17" r="2" />
+    </svg>
+  );
+}
+
+export function ChevronRightIcon({ size = 15, strokeWidth = 2.4, className }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)} className={className}>
+      <path d="m9.5 5.5 6.5 6.5-6.5 6.5" />
+    </svg>
+  );
+}
+
+export function BoltIcon({ size = 13, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden focusable="false" className={className}>
+      <path d="M13.5 2 4 13.5h6L9.5 22 20 10.5h-6.5z" />
+    </svg>
+  );
+}
+
+export function InboxIcon({ size = 28, strokeWidth = 2, className }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)} className={className}>
+      <path d="M3.5 13.5h4l1.5 3h6l1.5-3h4" />
+      <path d="M6 4.5h12l2.5 9v5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2v-5z" />
+    </svg>
+  );
+}

@@ -2,71 +2,73 @@ import { useMemo, useState } from 'react';
 import { AppHeader } from './components/AppHeader';
 import { BottomNav, type TabId } from './components/BottomNav';
 import { ConjugationMatrix } from './components/ConjugationMatrix';
+import { DeckScreen } from './components/DeckScreen';
 import { ExampleSentences } from './components/ExampleSentences';
+import { GenderScreen } from './components/GenderScreen';
 import { GrammarTip } from './components/GrammarTip';
+import { ProgressScreen } from './components/ProgressScreen';
 import { PrefixVerbs } from './components/PrefixVerbs';
 import { SearchBar } from './components/SearchBar';
 import { WordCard } from './components/WordCard';
 import { WordFamily } from './components/WordFamily';
-import { BookIcon, CardsIcon, ChartIcon } from './components/Icons';
-import { findEntry, SUGGESTIONS } from './data/dictionary';
+import { SUGGESTIONS } from './data/dictionary';
+import { searchEntries } from './lib/search';
+import { addToDeck, removeFromDeck, useDeck, useReviewLog } from './lib/deck';
+import { studyStreak } from './lib/progress';
 import './styles/app.css';
 
-const PLACEHOLDERS: Record<Exclude<TabId, 'dictionary'>, { Icon: typeof BookIcon; title: string; text: string }> = {
-  deck: {
-    Icon: CardsIcon,
-    title: 'Your Anki deck',
-    text: 'Words you save from the dictionary will queue up here for spaced repetition.',
-  },
-  grammar: {
-    Icon: BookIcon,
-    title: 'Grammar',
-    text: 'Cases, articles, verb tenses and word order — explained in English, drilled in German.',
-  },
-  progress: {
-    Icon: ChartIcon,
-    title: 'Progress',
-    text: 'Streaks, words learned and CEFR level growth will show up here.',
-  },
+const HEADER_SUBTITLE: Record<TabId, string> = {
+  dictionary: 'Dictionary',
+  deck: 'Anki Deck',
+  grammar: 'Vocabulary',
+  progress: 'Progress',
 };
 
 export default function App() {
   const [tab, setTab] = useState<TabId>('dictionary');
   const [query, setQuery] = useState('die Entscheidung');
-  const [saved, setSaved] = useState<string[]>([]);
+  const deck = useDeck();
+  const log = useReviewLog();
+  const streak = useMemo(() => studyStreak(log), [log]);
 
-  const entry = useMemo(() => findEntry(query), [query]);
+  const results = useMemo(() => searchEntries(query), [query]);
+  const entry = results[0]?.entry;
 
-  const toggleSave = (id: string) =>
-    setSaved((current) => (current.includes(id) ? current.filter((x) => x !== id) : [...current, id]));
-
-  const placeholder = tab === 'dictionary' ? null : PLACEHOLDERS[tab];
+  const toggleSave = (id: string) => (deck[id] ? removeFromDeck(id) : addToDeck(id));
 
   return (
     <div className="phone-frame">
       <div className="phone">
-        <AppHeader streak={4} />
+        <AppHeader subtitle={HEADER_SUBTITLE[tab]} streak={streak} />
 
-        {placeholder ? (
+        {tab === 'deck' && <DeckScreen />}
+
+        {tab === 'grammar' && (
+          <GenderScreen
+            onOpenWord={(word) => {
+              setQuery(word);
+              setTab('dictionary');
+            }}
+          />
+        )}
+
+        {tab === 'progress' && <ProgressScreen />}
+
+        {tab === 'dictionary' && (
           <div className="screen">
-            <div className="placeholder">
-              <div className="placeholder-icon">
-                <placeholder.Icon size={28} />
-              </div>
-              <h3>{placeholder.title}</h3>
-              <p>{placeholder.text}</p>
-            </div>
-          </div>
-        ) : (
-          <div className="screen">
-            <SearchBar value={query} onChange={setQuery} />
+            <SearchBar
+              value={query}
+              onChange={setQuery}
+              results={results}
+              onPick={(picked) => setQuery(picked.word)}
+            />
 
             {entry ? (
               <>
                 <WordCard
                   key={entry.id}
                   entry={entry}
-                  saved={saved.includes(entry.id)}
+                  saved={Boolean(deck[entry.id])}
                   onToggleSave={() => toggleSave(entry.id)}
                 />
                 <ExampleSentences examples={entry.examples} />

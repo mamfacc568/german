@@ -58,8 +58,10 @@ export type Entry = {
   ipa: string;
   respelling: string;
   primaryMeaning: string;
-  contextMeaning?: string;
-  contextDomain?: string;
+  /** Meaning in Hindi, in Devanagari. */
+  hindi: string;
+  /** The same Hindi, written in Latin letters. */
+  hindiRoman: string;
   examples: Example[];
   conjugation?: Conjugation;
   family?: {
@@ -234,8 +236,8 @@ export const DICTIONARY: Entry[] = [
     ipa: '[ɛntˈʃaɪ̯dʊŋ]',
     respelling: 'ent-SHY-doong',
     primaryMeaning: 'Decision, Choice, Resolution',
-    contextMeaning: 'Verdict, Ruling',
-    contextDomain: 'Law & justice / legal',
+    hindi: 'निर्णय, फैसला',
+    hindiRoman: 'nirnay, faisla',
     examples: [
       {
         de: 'Es war eine schwere [[Entscheidung]] für uns.',
@@ -275,8 +277,8 @@ export const DICTIONARY: Entry[] = [
     ipa: '[ˈʃteːən]',
     respelling: 'SHTAY-uhn',
     primaryMeaning: 'To stand, To be located',
-    contextMeaning: 'To suit someone, To say (in a text)',
-    contextDomain: 'Everyday speech / idiomatic',
+    hindi: 'खड़ा होना, स्थित होना',
+    hindiRoman: 'khada hona, sthit hona',
     examples: [
       {
         de: 'Das Auto [[steht]] vor der Tür.',
@@ -391,8 +393,8 @@ export const DICTIONARY: Entry[] = [
     ipa: '[ˈhɔfnʊŋ]',
     respelling: 'HOF-noong',
     primaryMeaning: 'Hope, Expectation',
-    contextMeaning: 'Prospect, Outlook',
-    contextDomain: 'Everyday speech / figurative',
+    hindi: 'आशा, उम्मीद',
+    hindiRoman: 'aasha, ummeed',
     examples: [
       {
         de: 'Ich habe die [[Hoffnung]] noch nicht aufgegeben.',
@@ -449,8 +451,8 @@ export const DICTIONARY: Entry[] = [
     ipa: '[ɛntˈʃaɪ̯dn̩]',
     respelling: 'ent-SHY-den',
     primaryMeaning: 'To decide, To determine',
-    contextMeaning: 'To rule, To settle a case',
-    contextDomain: 'Law & justice / legal',
+    hindi: 'निर्णय लेना, तय करना',
+    hindiRoman: 'nirnay lena, tay karna',
     examples: [
       {
         de: 'Du musst selbst [[entscheiden]], was richtig ist.',
@@ -491,8 +493,8 @@ export const DICTIONARY: Entry[] = [
     ipa: '[veːk]',
     respelling: 'vayk',
     primaryMeaning: 'Way, Path, Route',
-    contextMeaning: 'Method, Approach',
-    contextDomain: 'Figurative / abstract',
+    hindi: 'रास्ता, मार्ग',
+    hindiRoman: 'raasta, maarg',
     examples: [
       {
         de: 'Wir suchen einen anderen [[Weg]] zum Ziel.',
@@ -531,8 +533,8 @@ export const DICTIONARY: Entry[] = [
     ipa: '[haʊ̯s]',
     respelling: 'howss',
     primaryMeaning: 'House, Home, Building',
-    contextMeaning: 'Household, Dynasty',
-    contextDomain: 'Formal / historical',
+    hindi: 'घर, मकान',
+    hindiRoman: 'ghar, makaan',
     examples: [
       {
         de: 'Das [[Haus]] meiner Großeltern steht am See.',

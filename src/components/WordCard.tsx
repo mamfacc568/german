@@ -60,14 +60,13 @@ export function WordCard({ entry, saved, onToggleSave }: Props) {
         <p className="field-primary">{entry.primaryMeaning}</p>
       </div>
 
-      {entry.contextMeaning && (
-        <div className="field">
-          <p className="field-label">Context / nuance</p>
-          <p className="field-value">
-            {entry.contextMeaning} <span>({entry.contextDomain})</span>
-          </p>
-        </div>
-      )}
+      <div className="field">
+        <p className="field-label field-label-hi">हिन्दी · Hindi</p>
+        <p className="field-hindi" lang="hi">
+          {entry.hindi}
+        </p>
+        <p className="field-hindi-roman">{entry.hindiRoman}</p>
+      </div>
 
       <button
         type="button"
