@@ -1,0 +1,5 @@
+# The service worker must never be served stale, or the app cannot update.
+/sw.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
