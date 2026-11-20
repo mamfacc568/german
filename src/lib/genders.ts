@@ -1,4 +1,4 @@
-import { DICTIONARY, type Gender } from '../data/dictionary';
+import type { Entry, Gender } from '../data/dictionary';
 
 export type Article = Exclude<Gender, 'none'>;
 
@@ -16,10 +16,10 @@ export type NounRow = {
  * Every noun the app knows: the head words plus the nouns listed in each
  * entry's word family. Deduplicated, head words win.
  */
-export function collectNouns(): NounRow[] {
+export function collectNouns(entries: Entry[]): NounRow[] {
   const rows = new Map<string, NounRow>();
 
-  for (const entry of DICTIONARY) {
+  for (const entry of entries) {
     if (entry.gender !== 'none') {
       rows.set(entry.word, {
         word: entry.word,
@@ -31,7 +31,7 @@ export function collectNouns(): NounRow[] {
     }
   }
 
-  for (const entry of DICTIONARY) {
+  for (const entry of entries) {
     for (const relative of entry.family?.relatives ?? []) {
       if (!relative.article || rows.has(relative.word)) continue;
       rows.set(relative.word, {

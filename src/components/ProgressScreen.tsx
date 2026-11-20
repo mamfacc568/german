@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { deckStats, useDeck, useReviewLog } from '../lib/deck';
+import { useWords } from '../lib/words';
 import { ARTICLE_LABEL, collectNouns } from '../lib/genders';
 import {
   accuracy,
@@ -56,6 +57,7 @@ function BarChart({ data, label, dense = false }: { data: DayBar[]; label: strin
 export function ProgressScreen() {
   const deck = useDeck();
   const log = useReviewLog();
+  const words = useWords();
 
   const stats = useMemo(() => deckStats(deck), [deck]);
   const streak = useMemo(() => studyStreak(log), [log]);
@@ -68,7 +70,7 @@ export function ProgressScreen() {
   const levels = useMemo(() => levelMix(deck), [deck]);
   const trouble = useMemo(() => troubleWords(deck), [deck]);
   const types = useMemo(() => wordTypes(deck), [deck]);
-  const allNouns = useMemo(() => collectNouns().length, []);
+  const allNouns = useMemo(() => collectNouns(Object.values(words)).length, [words]);
 
   const totalCards = stats.size;
   const mixTotal = mix.reduce((sum, m) => sum + m.count, 0) || 1;

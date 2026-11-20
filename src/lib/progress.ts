@@ -1,9 +1,13 @@
-import { DICTIONARY, type Entry, type Example } from '../data/dictionary';
+import type { Entry, Example } from '../data/dictionary';
+import { getWords } from './words';
 import { bucketOf, type Bucket, type DeckState, type ReviewEvent } from './deck';
 import type { Article } from './genders';
 
 const DAY = 24 * 60 * 60 * 1000;
-const byId = new Map(DICTIONARY.map((entry) => [entry.id, entry]));
+/** Entries live in the word store now, so read it when asked. */
+const byId = {
+  get: (id: string): Entry | undefined => getWords()[id],
+};
 
 /** Local calendar day key, so "today" means the user's today. */
 export function dayKey(t: number): string {
@@ -118,12 +122,12 @@ export function levelMix(deck: DeckState): Mix[] {
   const counts = new Map<string, number>();
   for (const id of Object.keys(deck)) {
     const level = byId.get(id)?.examples[0]?.level;
-    if (level) counts.set(level, (counts.get(level) ?? 0) + 1);
+    if (level) counts.set(level as string, (counts.get(level as string) ?? 0) + 1);
   }
-  return LEVELS.filter((level) => counts.has(level)).map((level) => ({
-    id: level,
-    label: level,
-    count: counts.get(level) ?? 0,
+  return LEVELS.filter((level) => counts.has(level as string)).map((level) => ({
+    id: level as string,
+    label: level as string,
+    count: counts.get(level as string) ?? 0,
   }));
 }
 

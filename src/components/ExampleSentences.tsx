@@ -20,9 +20,11 @@ export function ExampleSentences({ examples }: { examples: Example[] }) {
               <p className="example-de">
                 “{renderMarked(example.de, (part, key) => <mark key={key}>{part}</mark>)}”
               </p>
-              <span className="level-pill" data-band={example.level[0].toLowerCase()}>
-                {example.level}
-              </span>
+              {example.level && (
+                <span className="level-pill" data-band={example.level[0].toLowerCase()}>
+                  {example.level}
+                </span>
+              )}
               <button
                 type="button"
                 className="icon-btn is-accent"

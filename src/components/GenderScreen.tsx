@@ -7,6 +7,7 @@ import {
   type Article,
 } from '../lib/genders';
 import { speakGerman } from '../lib/markup';
+import { useWords } from '../lib/words';
 import { BulbIcon, ChevronRightIcon, SearchIcon, SpeakerIcon } from './Icons';
 
 type Filter = 'all' | Article;
@@ -14,7 +15,8 @@ type Filter = 'all' | Article;
 const ORDER: Article[] = ['der', 'die', 'das'];
 
 export function GenderScreen({ onOpenWord }: { onOpenWord: (word: string) => void }) {
-  const nouns = useMemo(collectNouns, []);
+  const words = useWords();
+  const nouns = useMemo(() => collectNouns(Object.values(words)), [words]);
   const counts = useMemo(() => countByArticle(nouns), [nouns]);
   const rules = useMemo(() => matchRules(nouns), [nouns]);
   const [filter, setFilter] = useState<Filter>('all');
@@ -40,7 +42,7 @@ export function GenderScreen({ onOpenWord }: { onOpenWord: (word: string) => voi
               Every noun in the app, sorted by <b>der</b> / <b>die</b> / <b>das</b>
             </p>
           </div>
-          <span className="level-chip">{total} nouns</span>
+          <span className="level-chip">{total} {total === 1 ? 'noun' : 'nouns'}</span>
         </div>
 
         <div className="gender-stats">

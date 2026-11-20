@@ -1,5 +1,4 @@
 import { useSyncExternalStore } from 'react';
-import { DICTIONARY } from '../data/dictionary';
 
 export type Rating = 'again' | 'hard' | 'good' | 'easy';
 
@@ -105,36 +104,6 @@ export function bucketOf(card: Card): Bucket {
 
 /* ---------------------------------------------------------------- store --- */
 
-function seed(): DeckState {
-  const now = Date.now();
-  const hour = 60 * 60 * 1000;
-  const day = 24 * hour;
-  const state: DeckState = {};
-
-  // A spread of states so the three counters show something real on first run.
-  const plan: { reps: number; interval: number; stage: number; dueIn: number }[] = [
-    { reps: 0, interval: 0, stage: 0, dueIn: 0 },
-    { reps: 0, interval: 0, stage: 0, dueIn: 0 },
-    { reps: 2, interval: 0.5, stage: 2, dueIn: -2 * hour },
-    { reps: 3, interval: 0.5, stage: 3, dueIn: -1 * hour },
-    { reps: 5, interval: 4, stage: 5, dueIn: -1 * day },
-    { reps: 7, interval: 9, stage: 7, dueIn: -3 * hour },
-  ];
-
-  DICTIONARY.forEach((entry, index) => {
-    const step = plan[index % plan.length];
-    state[entry.id] = {
-      ...newCard(entry.id, now),
-      reps: step.reps,
-      interval: step.interval,
-      stage: step.stage,
-      due: now + step.dueIn,
-      ease: 2.5,
-    };
-  });
-  return state;
-}
-
 function load(): DeckState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -142,7 +111,7 @@ function load(): DeckState {
   } catch {
     /* private mode, blocked storage — fall through to a seeded deck */
   }
-  return seed();
+  return {};
 }
 
 let state: DeckState = load();

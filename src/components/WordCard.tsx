@@ -50,9 +50,13 @@ export function WordCard({ entry, saved, onToggleSave }: Props) {
 
       <div>
         <h2 className="entry-word">{entry.word}</h2>
-        <p className="entry-phonetic">
-          {entry.ipa} · say it like <b>{entry.respelling}</b>
-        </p>
+        {(entry.ipa || entry.respelling) && (
+          <p className="entry-phonetic">
+            {entry.ipa}
+            {entry.ipa && entry.respelling ? ' · say it like ' : ''}
+            {entry.respelling && <b>{entry.respelling}</b>}
+          </p>
+        )}
       </div>
 
       <div className="field">
@@ -60,13 +64,15 @@ export function WordCard({ entry, saved, onToggleSave }: Props) {
         <p className="field-primary">{entry.primaryMeaning}</p>
       </div>
 
-      <div className="field">
-        <p className="field-label field-label-hi">हिन्दी · Hindi</p>
-        <p className="field-hindi" lang="hi">
-          {entry.hindi}
-        </p>
-        <p className="field-hindi-roman">{entry.hindiRoman}</p>
-      </div>
+      {entry.hindi && (
+        <div className="field">
+          <p className="field-label field-label-hi">हिन्दी · Hindi</p>
+          <p className="field-hindi" lang="hi">
+            {entry.hindi}
+          </p>
+          {entry.hindiRoman && <p className="field-hindi-roman">{entry.hindiRoman}</p>}
+        </div>
+      )}
 
       <button
         type="button"

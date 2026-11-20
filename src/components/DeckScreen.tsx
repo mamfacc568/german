@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { DICTIONARY, type Entry } from '../data/dictionary';
+import type { Entry } from '../data/dictionary';
+import { getWords } from '../lib/words';
 import { dueQueue, deckStats, rateCard, useDeck, type Rating } from '../lib/deck';
 import { speakGerman } from '../lib/markup';
 import { Flashcard } from './Flashcard';
@@ -22,7 +23,7 @@ const LEVEL_NAME: Record<string, string> = {
   C2: 'Mastery',
 };
 
-const byId = new Map(DICTIONARY.map((entry) => [entry.id, entry]));
+const byId = { get: (id: string): Entry | undefined => getWords()[id] };
 
 const AUDIO_KEY = 'wortschatz.autoAudio';
 const readAutoAudio = () => {
